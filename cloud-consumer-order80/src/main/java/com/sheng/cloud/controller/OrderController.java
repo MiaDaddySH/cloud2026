@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/consumer/pay")
 public class OrderController {
-	@Value("${payment.service.url:http://localhost:8001}")
+	@Value("${payment.service.url}")
 	private String paymentServiceUrl;
 
 	@Resource
