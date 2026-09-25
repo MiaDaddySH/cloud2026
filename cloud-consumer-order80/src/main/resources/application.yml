@@ -1,0 +1,6 @@
+server:
+  port: 80
+
+payment:
+  service:
+    url: ${PAYMENT_SERVICE_URL:http://localhost:8001}

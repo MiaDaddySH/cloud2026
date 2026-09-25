@@ -1,0 +1,14 @@
+# Maven
+target/
+*.log
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Local environment overrides
+.env
+application-local.yml
