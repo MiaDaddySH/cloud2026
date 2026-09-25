@@ -1,6 +1,6 @@
 # cloud2026
 
-一个基于 Java 17、Spring Boot 3.2.4 和 Maven 的多模块 Spring Cloud 学习项目，演示订单服务通过 REST 调用支付服务，并使用 MyBatis 访问 MySQL。
+一个基于 Java 17、Spring Boot 3.2.4 和 Maven 的多模块 Spring Cloud 学习项目，演示订单服务通过 Consul 和 Spring Cloud LoadBalancer 调用支付服务，并使用 MyBatis 访问 MySQL。
 
 ## 模块
 
@@ -16,6 +16,7 @@
 - JDK 17 或更高版本
 - Maven 3.9+
 - MySQL 8.x
+- Consul
 
 ## 本地运行
 
@@ -39,14 +40,22 @@
    mvn clean verify
    ```
 
-4. 分别启动支付服务和订单服务：
+4. 启动 Consul，然后启动第一个支付服务实例：
 
    ```bash
    java -jar cloud-provider-payment8001/target/cloud-provider-payment8001-1.0-SNAPSHOT.jar
-   java -jar cloud-consumer-order80/target/cloud-consumer-order80-1.0-SNAPSHOT.jar
    ```
 
-   如果端口 80 不可用，可为订单服务指定其他端口：
+5. 如需验证负载均衡，在另一个终端使用同一个 JAR 启动 8002 实例，无需复制模块：
+
+   ```bash
+   java -jar cloud-provider-payment8001/target/cloud-provider-payment8001-1.0-SNAPSHOT.jar --server.port=8002
+   ```
+
+   两个实例都会以 `cloud-payment-service` 注册到 Consul，并分别使用
+   `cloud-payment-service-8001` 和 `cloud-payment-service-8002` 作为实例 ID。
+
+6. 启动订单服务。如果端口 80 不可用，可以指定其他端口：
 
    ```bash
    java -jar cloud-consumer-order80/target/cloud-consumer-order80-1.0-SNAPSHOT.jar --server.port=8080

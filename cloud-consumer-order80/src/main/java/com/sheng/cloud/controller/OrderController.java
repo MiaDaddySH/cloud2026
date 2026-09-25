@@ -55,4 +55,9 @@ public class OrderController {
 
 		return response.getBody();
 	}
+
+	@GetMapping("/info")
+	private String getInfoByConsul() {
+		return restTemplate.getForObject(paymentServiceUrl + "/pay/info", String.class);
+	}
 }
