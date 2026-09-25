@@ -20,6 +20,8 @@
         <module>cloud-provider-payment8001</module>
         <module>cloud-consumer-order80</module>
         <module>cloud-api-commons</module>
+        <module>cloud-payment-client</module>
+        <module>cloud-consumer-feign-order80</module>
     </modules>
 
 
@@ -42,6 +44,11 @@
             <dependency>
                 <groupId>com.sheng.cloud</groupId>
                 <artifactId>cloud-api-commons</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sheng.cloud</groupId>
+                <artifactId>cloud-payment-client</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
             <!--Spring Cloud 2023.0.1-->

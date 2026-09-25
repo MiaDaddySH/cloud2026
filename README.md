@@ -7,8 +7,10 @@
 | 模块 | 说明 | 默认端口 |
 | --- | --- | --- |
 | `cloud-api-commons` | 公共 DTO、响应对象和异常处理 | - |
+| `cloud-payment-client` | 支付服务的 OpenFeign 客户端契约 | - |
 | `cloud-provider-payment8001` | 支付服务，提供支付记录 CRUD API | 8001 |
 | `cloud-consumer-order80` | 订单服务，转发请求到支付服务 | 80 |
+| `cloud-consumer-feign-order80` | 使用 OpenFeign 调用支付服务的订单服务 | 80 |
 | `mybatis_generator2026` | MyBatis Generator 配置 | - |
 
 ## 环境要求

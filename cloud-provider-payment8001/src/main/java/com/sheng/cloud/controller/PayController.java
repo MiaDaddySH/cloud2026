@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
@@ -33,7 +34,9 @@ public class PayController {
 			@ApiResponse(responseCode = "200", description = "新增成功或新增失败"),
 			@ApiResponse(responseCode = "400", description = "请求参数格式错误", content = @Content)
 	})
-	public ResultData<String> addPay(@RequestBody Pay pay){
+	public ResultData<String> addPay(@RequestBody PayDTO payDTO){
+		Pay pay = new Pay();
+		BeanUtils.copyProperties(payDTO, pay);
 		log.debug("pay: {}", pay);
 		int result = payService.add(pay);
 		return ResultData.success("支付记录新增成功, 返回值:" + result);
@@ -58,11 +61,11 @@ public class PayController {
 			@ApiResponse(responseCode = "200", description = "修改成功或修改失败"),
 			@ApiResponse(responseCode = "400", description = "请求参数格式错误", content = @Content)
 	})
-	public ResultData<String> updatePay(@RequestBody PayDTO payDTO) {
+	public ResultData<Integer> updatePay(@RequestBody PayDTO payDTO) {
 		Pay pay = new Pay();
 		BeanUtils.copyProperties(payDTO, pay);
 		int result = payService.update(pay);
-		return ResultData.success("支付记录更新成功, 返回值:" + result);
+		return ResultData.success(result);
 	}
 
 	@GetMapping("/{id}")
@@ -77,6 +80,11 @@ public class PayController {
 	public ResultData<Pay> getPay(
 			@Parameter(description = "支付记录 ID", required = true, example = "1")
 			@PathVariable Integer id) {
+		try {
+			TimeUnit.SECONDS.sleep(62);
+		} catch (InterruptedException e) {
+			log.error("InterruptedException: {}", e.getMessage());
+		}
 		return ResultData.success(payService.getById(id));
 	}
 
